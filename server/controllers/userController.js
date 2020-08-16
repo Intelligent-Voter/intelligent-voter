@@ -6,7 +6,7 @@ const userController = {};
 
 userController.createUser = async (req, res, next) => {
   const { username, password, address, zipcode } = req.body;
-
+  console.log(username)
     try {
         const dataJ = await fetch(`https://usgeocoder.com/api/get_info.php?address=${address}&zipcode=${zipcode}&authkey=97c7224b2017426c36967c31af4c7645&format=json`)
         const data = await dataJ.json();
@@ -29,7 +29,8 @@ userController.createUser = async (req, res, next) => {
         });
         const senator = await senJson.json();
 
-        res.locals.user = await User.create({ username, password, zipcode, rep: rep.results[0], senators: senator.results });
+        res.locals.user = await User.create({ username, password, zipcode, rep: rep.results[0], senators: senator.results, state });
+        console.log(res.locals.user)
         next();  
     } catch (err) {
         next(err);

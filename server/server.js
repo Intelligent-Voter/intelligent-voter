@@ -46,6 +46,7 @@ app.use('/signup', userController.createUser, cookieController.setSSIDCookie, se
 
 app.use('/login', userController.verifyUser, cookieController.setSSIDCookie, sessionController.startSession, (req, res) => {
   res.status(200).json(res.locals.user);
+  // res.redirect('/home', );
 })
 
 

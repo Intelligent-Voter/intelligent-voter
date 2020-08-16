@@ -22,7 +22,8 @@ const userSchema = new Schema({
   address: String,
   zipcode: Number,
   rep: Object,
-  senators: Object
+  senators: Object,
+  state: String,
 })
 
 userSchema.pre('save', function (next) {

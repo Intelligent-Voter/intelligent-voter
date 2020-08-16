@@ -2,7 +2,17 @@ import React, {Fragment} from "react"
 import ReactDOM from "react-dom"
 import { Link, NavLink } from "react-router-dom";
 
-function MainPage(){
+function MainPage(props) {
+    const { name, party, next_election } = props.data.rep;
+    const { state } = props.data;
+
+    console.log(props.data)
+    let partyy;
+    if (party === 'D') partyy = 'Democrat';
+    else if (party === 'R') partyy = 'Republican';
+    else partyy = 'Independent';
+
+
     return( 
     <Fragment>
         <div className = "secondPart">
@@ -13,9 +23,9 @@ function MainPage(){
             <button className = "senatorButton" >
                 <div className = "senatorButtonInner">
                 <div>
-                    <div className = "info">Name : XXXXXX  xX XxXXX </div>
+                    <div className = "info"></div>
                     <div className = "info">Chamber: Xxxx xx xx </div>
-                    <div className = "info">Party: XX XX xxx</div>
+                    <div className = "info">Party: XXXxxxx</div>
                 </div>
                 <div>
                     <div className = "info">Next Election: 2020</div>
@@ -31,13 +41,13 @@ function MainPage(){
         <button className = "senatorButton" >
                 <div className = "senatorButtonInner">
                 <div>
-                    <div className = "info">Name : X X  XX X</div>
-                    <div className = "info">Chamber: X  X xX</div>
-                    <div className = "info">Party: X X X X x</div>
+                    <div className = "info">{`Name: ${name}`}</div>
+                    <div className = "info">Chamber: House</div>
+                    <div className = "info">{`Party: ${partyy}`}</div>
                 </div>
                 <div>
-                    <div className = "info">Next Election:X X x </div>
-                    <div className = "info">State:X X X </div>
+                    <div className = "info">{`Next Election: ${next_election}`}</div>
+                    <div className = "info">{`State: ${state}`} </div>
                     <div className = "info">See Bill Positions + Additonal Info</div>
                 </div>
                 </div>
