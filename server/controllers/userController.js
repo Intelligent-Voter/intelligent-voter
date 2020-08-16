@@ -1,5 +1,6 @@
 const User = require('../models/userModel.js');
 const fetch = require('node-fetch');
+const axios = require('axios');
 
 const userController = {};
 
@@ -43,8 +44,9 @@ userController.verifyUser = async (req, res, next) => {
     if (err) {
       res.redirect('/signup')
     } 
+    console.log('About to compare passwords!!')
     user.comparePassword(password, (err, isMatch) => {
-      if (err) return next(err);
+      // if (err) return next(err);
       if (isMatch) {
         res.locals.user = user;
         return next();
@@ -53,5 +55,44 @@ userController.verifyUser = async (req, res, next) => {
     })
   })
 }
+
+userController.getToken = (req, res, next) => {
+  const client_id = "2e3c7b09858631e8f922";
+  const { code } = req.query;
+  const client_secret = "67c20b137b8a214dae7bf1d020470edf2e780308"
+  console.log('axios go')
+  axios({
+    method: 'POST',
+
+    url: `https://github.com/login/oauth/access_token?client_id=${client_id}&client_secret=${client_secret}&code=${code}`,
+
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then(response => {
+
+    const params = new URLSearchParams(response.data);
+  
+    res.locals.access_token = params.get('access_token');
+
+    return next();
+  }).catch(err => {
+    console.log('error catch');
+    return next(err);
+  })
+}
+
+userController.getGithubUser = async (req, res, next) => {
+  const response = await fetch('https://api.github.com/user', {
+    headers: {
+      Authorization: `bearer ${res.locals.access_token}`,
+    },
+  });
+  const data = await response.json();
+  res.locals.github = data;
+  next();
+}
+
+
 
 module.exports = userController;
