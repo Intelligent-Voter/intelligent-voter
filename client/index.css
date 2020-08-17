@@ -6,9 +6,9 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    height: 112px;
-    /* background-color: #2e2d71; */
-    background: url('https://lh3.googleusercontent.com/proxy/Dg313xmXjMyShSQGMN4a0jKB7WLJcYSu-GgTskr4rHnh0j6owl4XPEz9OccfIpT-hK3LW3ypqgQZIeHb4iMpaJyAaAUXH0uzxRlpNCHaJRHbLv59cBJN9tsMUkD24rCaepk7oaoPmUVJ30DfXEkU1DNV');
+    height: 80px;
+    background-color: #2e2d71;
+    /* background: url('https://lh3.googleusercontent.com/proxy/Dg313xmXjMyShSQGMN4a0jKB7WLJcYSu-GgTskr4rHnh0j6owl4XPEz9OccfIpT-hK3LW3ypqgQZIeHb4iMpaJyAaAUXH0uzxRlpNCHaJRHbLv59cBJN9tsMUkD24rCaepk7oaoPmUVJ30DfXEkU1DNV'); */
     color: white;
 }
 
@@ -34,20 +34,20 @@ body {
 }
 
 .elephant {
-    /* display: flex;
-    justify-content: end; */
-    position: absolute;
+    display: flex;
+    justify-content: end;
+    /* position: absolute;
     left: 20px;
-    top: 150px;
+    top: 150px; */
     width: 20%;
     height: 35%;
-    /* margin-right: 30px; */
+    margin-right: 30px;
 }
 .donkey {
-    /* margin-left: 50px; */
-    position: absolute;
+    margin-left: 50px;
+    /* position: absolute;
     right: 50px;
-    top: 150px;
+    top: 150px; */
     width: 20%;
     height: 35%;
     /* margin-right: 50px; */

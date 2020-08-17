@@ -26,34 +26,34 @@ class RepContainer extends React.Component {
         if (names[first]) first = names[first];
         let name = `${first}_${this.props.rep.last_name}`
 
-        // const response = await fetch(`https://cors-anywhere.herokuapp.com/https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&titles=${name}&pithumbsize=110&format=json`)
+        const response = await fetch(`https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&titles=${name}&pithumbsize=110&format=json`)
 
-        // const parsed = await response.json();
+        const parsed = await response.json();
 
-        // const image = Object.values(parsed.query.pages)[0].thumbnail.source;
+        const image = Object.values(parsed.query.pages)[0].thumbnail.source;
 
-        // const extraInfo = await fetch(`https://cors-anywhere.herokuapp.com/https://api.propublica.org/congress/v1/members/${this.props.rep.id}.json`, {
-        //     method: 'GET',
-        //     headers: { 
-        //         "x-api-key": "UtUCd2v2fjbIMNqQxZaAeVS407ZAVVT9iKsCJO6r"
-        //     }
-        // })
+        const extraInfo = await fetch(`https://api.propublica.org/congress/v1/members/${this.props.rep.id}.json`, {
+            method: 'GET',
+            headers: { 
+                "x-api-key": "UtUCd2v2fjbIMNqQxZaAeVS407ZAVVT9iKsCJO6r"
+            }
+        })
 
-        // const parsedInfo = await extraInfo.json();
+        const parsedInfo = await extraInfo.json();
 
 
-        // const { missed_votes_pct, votes_with_party_pct, phone } = parsedInfo.results[0].roles[0];
+        const { missed_votes_pct, votes_with_party_pct, phone } = parsedInfo.results[0].roles[0];
 
-        // console.log(parsedInfo)
+        console.log(parsedInfo)
 
-        // const onCommitteesNum = parsedInfo.results[0].roles[0].committees.length;
-        // const subCommitteesNum = parsedInfo.results[0].roles[0].subcommittees.length;
+        const onCommitteesNum = parsedInfo.results[0].roles[0].committees.length;
+        const subCommitteesNum = parsedInfo.results[0].roles[0].subcommittees.length;
 
-        // this.setState({
-        //     // image,
-        //     extraInfo: parsedInfo.results[0].roles[0],
-        //     phone
-        // })
+        this.setState({
+            // image,
+            extraInfo: parsedInfo.results[0].roles[0],
+            phone
+        })
     }
 
     render() {
