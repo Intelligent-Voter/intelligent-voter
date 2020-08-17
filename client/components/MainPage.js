@@ -6,16 +6,14 @@ import InputField from './InputField';
 
 
 function MainPage(props) {
-    // const { name, party, next_election } = props.data.rep;
     const { data, updateAddress, onChange } = props;
 
     const senators = data.senators.map((obj, i) => <div className="senators"><RepContainer homeState={data.state} rep={obj} route={`s${i+1}`}/></div> )
 
-    // const r = 'r';
     return ( 
         <Fragment>
             <div className = "reps-container">
-                <Link to="/all"><button class="seeAll">See All Members</button></Link>
+                <Link to="/all"><button className="seeAll">See All Members</button></Link>
                 <h1>Your State Representatives</h1>
                 <h4>Senators</h4>
                     {senators}

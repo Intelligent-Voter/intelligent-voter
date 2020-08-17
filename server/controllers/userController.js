@@ -8,7 +8,7 @@ userController.createUser = async (req, res, next) => {
   const {
     username, password, address, zipcode,
   } = req.body;
-  console.log(username);
+  // console.log(username);
   try {
     const dataJ = await fetch(`https://usgeocoder.com/api/get_info.php?address=${address}&zipcode=${zipcode}&authkey=97c7224b2017426c36967c31af4c7645&format=json`);
     const data = await dataJ.json();
@@ -34,7 +34,7 @@ userController.createUser = async (req, res, next) => {
     res.locals.user = await User.create({
       username, password, zipcode, rep: rep.results[0], senators: senator.results, state,
     });
-    console.log(res.locals.user);
+    // console.log(res.locals.user);
     next();
   } catch (err) {
     next(err);
@@ -48,7 +48,7 @@ userController.verifyUser = async (req, res, next) => {
     if (err) {
       res.redirect('/signup');
     }
-    console.log('About to compare passwords!!');
+    // console.log('About to compare passwords!!');
     user.comparePassword(password, (err, isMatch) => {
       if (err) return next(err);
       if (isMatch) {

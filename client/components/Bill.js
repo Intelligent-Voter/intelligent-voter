@@ -2,13 +2,13 @@ import React, {Fragment} from "react";
 import ReactDOM from "react-dom";
 
 const Bill = (props) => {
-  console.log(props)
+  // console.log(props)
   const { obj } = props;
   let { title, number, latest_action } = obj.bill;
   let { position, description } = obj;
   let { yes, no, not_voting } = obj.total;
-  console.log(obj);
-  console.log(title, position, yes);
+  // console.log(obj);
+  // console.log(title, position, yes);
 
   if (title) title = `Description: ${title}`;
   if (!title) title = `Description: ${description}`

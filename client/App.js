@@ -74,22 +74,14 @@ const App = (props) => {
         setData(prev => ({...prev, hasAcc: false }))
     }
 
-
-
-    const rep = 'rep';
-    const s1 = 's1';
-    const s2 = 's2';
-
-    console.log('app current', data.current)
-
     return (
         <React.Fragment>
         <Switch>
             <Route path='/login' render={(props) => <Login2 {...props} onChange={handleChange} data={data} authLogin={authLogin} signup={signup} submitSignup={submitSignup}/>}></Route>
             <Route path="/home" render={(props) => <MainPage {...props} data={data.current} updateAddress={updateAddress} onChange={handleChange}/>} ></Route>
-            <Route path="/individual/r" render={(props) => <Individual {...props} current={data.current} route={rep}/>} ></Route>
-            <Route path="/individual/s1" render={(props) => <Individual {...props} current={data.current} route={s1}/>}></Route>
-            <Route path="/individual/s2" render={(props) => <Individual {...props} current={data.current} route={s2}/>}></Route>
+            <Route path="/individual/r" render={(props) => <Individual {...props} current={data.current} route='rep'/>} ></Route>
+            <Route path="/individual/s1" render={(props) => <Individual {...props} current={data.current} route='s1'/>}></Route>
+            <Route path="/individual/s2" render={(props) => <Individual {...props} current={data.current} route='s2'/>}></Route>
             <Route path="/all" render={(props) => <AllMembers {...props}/>}></Route>
             <Redirect from="/" exact to="/login"></Redirect>
         </Switch>
