@@ -8,10 +8,11 @@ import AllMembers from './components/AllMembers';
 import "@babel/polyfill";
 
 const App = (props) => {
-    // array destructuring here and setting it to an empty object;
+    // array destructuring here and setting it to an empty object // Hooks State 
     const [data, setData] = React.useState({ path: '/login', hasAcc: true });
 
     // // Get data from local storage
+
     // React.useEffect(() => {
     //     const parsedData = JSON.parse(localStorage.getItem("data"))
     //     console.log(parsedData)
@@ -19,6 +20,7 @@ const App = (props) => {
     // }, [])
 
     // // saves to local storage
+
     // React.useEffect(() => {
     //     localStorage.setItem("data", JSON.stringify(data))
     // }, [data])
