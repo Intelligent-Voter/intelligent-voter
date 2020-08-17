@@ -1,8 +1,25 @@
 html {
     height: 100%;
 }
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 112px;
+    /* background-color: #2e2d71; */
+    background: url('https://lh3.googleusercontent.com/proxy/Dg313xmXjMyShSQGMN4a0jKB7WLJcYSu-GgTskr4rHnh0j6owl4XPEz9OccfIpT-hK3LW3ypqgQZIeHb4iMpaJyAaAUXH0uzxRlpNCHaJRHbLv59cBJN9tsMUkD24rCaepk7oaoPmUVJ30DfXEkU1DNV');
+    color: white;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
 
 body {
+    padding-top: 20px;
     /* margin: 50;
     padding: 50; */
     background: linear-gradient(to bottom right, rgb(50, 107, 230), white);
@@ -17,14 +34,20 @@ body {
 }
 
 .elephant {
-    display: flex;
-    justify-content: end;
+    /* display: flex;
+    justify-content: end; */
+    position: absolute;
+    left: 20px;
+    top: 150px;
     width: 20%;
     height: 35%;
     /* margin-right: 30px; */
 }
 .donkey {
     /* margin-left: 50px; */
+    position: absolute;
+    right: 50px;
+    top: 150px;
     width: 20%;
     height: 35%;
     /* margin-right: 50px; */
@@ -32,7 +55,7 @@ body {
 
 /* LOGIN CSS BELOW */
 .login-button {
-    margin-top: 20px;
+    margin-top: 50px;
     margin-right: 20px;
     border-radius: 5px;
     border: solid rgb(50, 107, 230)2px;
@@ -59,14 +82,16 @@ body {
     }
 /* LogIn Container */
 .login-outer-container {
-    
-    margin-top: 200px;
+   margin-top: 20px; 
+   margin: 50px;
 }
 
 .form-label {
     display: flex;
     justify-content: center;
-    border: 1px solid black;
+    border: 3px solid rgb(50, 107, 230);
+    border-radius: 5px;
+    /* box-shadow: 5px 10px #888888; */
     margin: auto;
     padding: 15px;
 }
@@ -87,6 +112,10 @@ h4 {
     text-align: center;
 }
 
+.update {
+    border: 3px solid rgb(50, 107, 230);
+    border-radius: 5px;
+}
 .senatorButton {
     margin-left: 5%;
     background-image: url("./images/american-flag.png");
@@ -112,10 +141,32 @@ h4 {
     margin:20px
 }
 
-
-
-
-
+.seeAll {
+    margin-top: 20px;
+    margin-right: 20px;
+    border-radius: 5px;
+    border: solid rgb(50, 107, 230)2px;
+    background-color: white;
+    color: rgb(50, 107, 230);
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px;
+    padding-bottom: 40px;
+    display:inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    height: 30px;
+    font-size: 16px;
+    font-weight: 600;
+}
+.seeAll:hover {
+    background: white;
+    color: rgb(50, 107, 230);
+    border: solid rgb(50, 107, 230) 2px;
+    border-radius: 5px;
+    text-decoration: none; 
+    }
 
 /* BILLS CSS BELOW */
 
@@ -142,7 +193,7 @@ h4 {
     display:flex;
     flex-direction: column;
     width: 70%;
-    height: 250px;
+    height: auto;
     margin: 10px;
     border-radius: 8px;
     /* height: auto; */

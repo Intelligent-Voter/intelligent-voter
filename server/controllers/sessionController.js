@@ -24,7 +24,7 @@ sessionController.isLoggedIn = (req, res, next) => {
 sessionController.startSession = (req, res, next) => {
   const { _id } = res.locals.user;
   const { access_token } = res.locals;
-
+  if (Session.findOne({ cookieId: _id, access_token })) return next();
   Session.create({ cookieId: _id, access_token });
   next();
 };

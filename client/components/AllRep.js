@@ -7,7 +7,6 @@ function AllRep (props) {
     const name = `${rep.first_name} ${rep.last_name}`;
 
 
-
     return (
         <div className = "allRep">
           {/* <Link className = "test" to= {`/individual/${route}`}> */}

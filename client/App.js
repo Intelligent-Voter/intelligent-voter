@@ -50,7 +50,6 @@ const App = (props) => {
         const current = await response.json();
         // console.log('sign up response: ', current)
         if (current) setTimeout(setData(prev => ({...prev, current, path: '/home'})), 2000);
-
     }
 
     // Update address and zipcode
@@ -71,11 +70,12 @@ const App = (props) => {
 
     // Click signup button on login page
     const signup = () => {
-        setData(prev => ({...prev, hasAcc: false }))
+        setData(prev => ({...prev, hasAcc: !data.hasAcc }))
     }
 
     return (
         <React.Fragment>
+
         <Switch>
             <Route path='/login' render={(props) => <Login2 {...props} onChange={handleChange} data={data} authLogin={authLogin} signup={signup} submitSignup={submitSignup}/>}></Route>
             <Route path="/home" render={(props) => <MainPage {...props} data={data.current} updateAddress={updateAddress} onChange={handleChange}/>} ></Route>
