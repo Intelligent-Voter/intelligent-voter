@@ -1,40 +1,123 @@
-import React, {Fragment} from "react"
+import React, {Fragment, useEffect} from "react"
 import ReactDOM from "react-dom"
+import Bill from './Bill';
+import "regenerator-runtime/runtime";
 
-function Individual(){
-    return( 
-    <Fragment>
+class Individual extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            bills: []
+        }
+    }
+    // const [bills, setBills] = React.useState([])
     
-        <div className = "mainIndividual">
-            <h1>Name of the Individual</h1>
-            <div className = "billPosition">
-                <div className= "billFirstSection">
-                <div className= "indBillInfo">Bill Title:</div>
-                <div>Latest Action:</div>
-                <div>Description:</div>
-                <div>Postion:</div>
-                <div>Total Votes for this Bill:</div>
-                <div>Yes:</div>
-                <div>No:</div>
-                <div>Not Voting:</div>
-                </div>
-                <div>
-                <div>To authorize appropriations and to appropriate amounts for the Veterans Choice Program of the Department of Veterans Affairs, to improve hiring authorities of the Department, to authorize major medical facility leases, and for other purposes.</div>
-                <div>Became Public Law No: 115-46.</div>
-                <div>Department of Veterans Affairs Bonus Transparency Act</div>
-                <div>Yes</div>
-                <div>414</div>
-                <div>0</div>
-                <div>19</div>
-                </div>
-            </div>
-      
-        </div>
     
-  
-      
-    </Fragment>    
-    );
+
+    // const fetching = async () => {
+    //     const response = await fetch(`https://api.propublica.org/congress/v1/members/${rep.id}/votes.json`, {
+    //         method: 'GET',
+    //         headers: {
+    //         'x-api-key': 'czotF7qf5gL6JUwX03GdtucgNcSaJOOMgZsutEGF',
+    //     },
+    //     });
+    //     const everything = await response.json();
+    //     const billsArr = everything.results[0].votes;
+    //     // console.log(billsArr)
+    //     return billsArr;
+    // }   
+
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         const billsArr = await fetching();
+    //         console.log('billsarr', billsArr);
+    //         votes = await billsArr.map(bill => <div><Bill obj={bill} /></div>);
+    //     }
+    //     fetchData();
+    //     // const billsArr = await fetching();
+    //     // bills = billsArr.map(bill => <div><Bill obj={bill} /></div>);
+    //     setBills(votes);
+    // })
+
+    async componentDidMount() {
+        const { route, current } = this.props;
+        let id;
+        if (route === 'rep') id = current.rep.id;
+        else if (route === 's1') id = current.senators[0].id;
+        else id = current.senators[1].id;
+
+        let votes = [];
+
+
+        const response = await fetch(`https://api.propublica.org/congress/v1/members/${id}/votes.json`, {
+            method: 'GET',
+            headers: {
+            'x-api-key': 'czotF7qf5gL6JUwX03GdtucgNcSaJOOMgZsutEGF',
+        },
+        });
+        const everything = await response.json();
+        let billsArr = everything.results[0].votes;
+
+        let count = {};
+
+        billsArr = billsArr.filter(el => {
+            if (!(el.bill.number in count)) {
+                count[el.bill.number] = true;
+                return true;
+            } else return false;
+        })
+
+     
+        votes = await billsArr.map(bill => <div className="bigBill"><Bill obj={bill} /></div>);
+
+       
+        // console.log(billsArr)
+        this.setState({
+            bills: votes
+        })
+    }
+
+
+    // props.fetchRep();
+
+        
+    // const billsArr = fetching();
+    // const bills = billsArr.map(bill => <div><Bill obj={bill} /></div>);
+
+
+    // console.log(props.billsArray);
+
+    
+   render() {
+
+        const { route, current } = this.props;
+        let name;
+        if (route === 'rep') name = current.rep.name;
+        else if (route === 's1') name = current.senators[0].name;
+        else name = current.senators[1].name;
+   
+    // console.log(this.state.bills)
+
+
+    
+    // console.log(bills)
+    if (this.state.bills.length) {
+        return( 
+            // <Fragment>
+                <div className = "mainIndividual">
+                    <h1 className="indieTitle">{name}</h1>
+                    <div className = "billPosition">
+                        {this.state.bills}
+                    </div>
+                </div>
+            // </Fragment>    
+        );
+    } else {
+        return (
+            <div>Just a moment...</div>
+        )
+    }
+   }
 }
 
 export default Individual;
