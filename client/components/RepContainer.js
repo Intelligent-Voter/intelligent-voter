@@ -51,7 +51,7 @@ class RepContainer extends React.Component {
         const subCommitteesNum = parsedInfo.results[0].roles[0].subcommittees.length;
 
         this.setState({
-            // image,
+            image,
             extraInfo: parsedInfo.results[0].roles[0],
             phone
         })

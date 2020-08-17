@@ -77,7 +77,7 @@ const App = (props) => {
 
         const current = await response.json();
 
-        if (current) setTimeout(setData(prev => ({ ...prev, current })), 2000);
+        if (current) setTimeout(setData(prev => ({ ...prev, current })), 1000);
     }
 
     // Click signup button on login page
