@@ -6,18 +6,20 @@ const sessionController = {};
 sessionController.isLoggedIn = (req, res, next) => {
   const { access_token } = req.locals;
 
+  let id;
+
   if (access_token) {
-    const id = access_token;
+    id = access_token;
   } else {
-    const id = req.cookies.ssid;
+    id = req.cookies.ssid;
   }
 
-  Session.findOne({ cookieId: id }, (err, session) => {s
+  Session.findOne({ cookieId: id }, (err, session) => {
     if (err) return next(err);
     if (!session) return res.redirect('/login');
     next();
-  })
-}
+  });
+};
 
 sessionController.startSession = (req, res, next) => {
   const { _id } = res.locals.user;
@@ -25,6 +27,6 @@ sessionController.startSession = (req, res, next) => {
 
   Session.create({ cookieId: _id, access_token });
   next();
-}
+};
 
 module.exports = sessionController;

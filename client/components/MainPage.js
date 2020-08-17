@@ -1,60 +1,45 @@
 import React, {Fragment} from "react"
 import ReactDOM from "react-dom"
 import { Link, NavLink } from "react-router-dom";
+import RepContainer from './RepContainer';
+import InputField from './InputField';
+
 
 function MainPage(props) {
-    const { name, party, next_election } = props.data.rep;
-    const { state } = props.data;
+    // const { name, party, next_election } = props.data.rep;
+    const { data, updateAddress, onChange } = props;
 
-    console.log(props.data)
-    let partyy;
-    if (party === 'D') partyy = 'Democrat';
-    else if (party === 'R') partyy = 'Republican';
-    else partyy = 'Independent';
+    const senators = data.senators.map((obj, i) => <div className="senators"><RepContainer homeState={data.state} rep={obj} route={`s${i+1}`}/></div> )
 
-
-    return( 
-    <Fragment>
-        <div className = "secondPart">
-        <h1>Your State Congress</h1>
-        <h4>Senators</h4>
-        <div className = "senators">
-        <Link className = "test" to= "/individual">
-            <button className = "senatorButton" >
-                <div className = "senatorButtonInner">
-                <div>
-                    <div className = "info"></div>
-                    <div className = "info">Chamber: Xxxx xx xx </div>
-                    <div className = "info">Party: XXXxxxx</div>
+    // const r = 'r';
+    return ( 
+        <Fragment>
+            <div className = "reps-container">
+                <Link to="/all"><button class="seeAll">See All Members</button></Link>
+                <h1>Your State Representatives</h1>
+                <h4>Senators</h4>
+                    {senators}
+                <h4>House</h4>
+                <div className = "house">
+                    <RepContainer homeState={data.state} rep={data.rep} route='r'/>
                 </div>
-                <div>
-                    <div className = "info">Next Election: 2020</div>
-                    <div className = "info">State: CA</div>
-                    <div className = "info">See Bill Positions + Additonal Info</div>
+                <div className="update">
+                    <form onSubmit={updateAddress}>
+                        <InputField
+                        name="address"
+                        label="Address: "
+                        onChange={onChange}
+                        />
+                        <InputField
+                        name="zipcode"
+                        label="Zipcode: "
+                        onChange={onChange}
+                        />
+                        <input type='submit' value='update' className='update-button' /> 
+                    </form>
                 </div>
-                </div>
-            </button>
-            </Link>
-        </div>
-        <h4>House</h4>
-        <div className = "house">
-        <button className = "senatorButton" >
-                <div className = "senatorButtonInner">
-                <div>
-                    <div className = "info">{`Name: ${name}`}</div>
-                    <div className = "info">Chamber: House</div>
-                    <div className = "info">{`Party: ${partyy}`}</div>
-                </div>
-                <div>
-                    <div className = "info">{`Next Election: ${next_election}`}</div>
-                    <div className = "info">{`State: ${state}`} </div>
-                    <div className = "info">See Bill Positions + Additonal Info</div>
-                </div>
-                </div>
-            </button>
-        </div>
-        </div>
-    </Fragment>    
+            </div>
+        </Fragment>    
     );
 }
 

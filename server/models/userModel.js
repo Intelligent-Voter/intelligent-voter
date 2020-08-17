@@ -4,17 +4,20 @@ const bcrypt = require('bcrypt');
 const MONGO_URI = 'mongodb+srv://stan:rhino@cluster0.etihd.mongodb.net/users?retryWrites=true&w=majority';
 const SALT_WORK_FACTOR = 10;
 
+// mongoose.connect(uri, { useFindAndModify: false });
+
 mongoose.connect(MONGO_URI, {
-    // options for the connect method to parse the URI
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    // sets the name of the DB that our collections are part of
-    dbName: 'users'
-  })
-    .then(() => console.log('Connected to Mongo DB.'))
-    .catch(err => console.log(err));
-  
-const Schema = mongoose.Schema;
+  // options for the connect method to parse the URI
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  // sets the name of the DB that our collections are part of
+  dbName: 'users',
+})
+  .then(() => console.log('Connected to Mongo DB.'))
+  .catch((err) => console.log(err));
+
+const { Schema } = mongoose;
 
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
@@ -24,24 +27,24 @@ const userSchema = new Schema({
   rep: Object,
   senators: Object,
   state: String,
-})
+});
 
 userSchema.pre('save', function (next) {
   const user = this;
 
-  bcrypt.hash(user.password, SALT_WORK_FACTOR, function (err, hash) {
-    if (err) return next(err)
-    user.password = hash
+  bcrypt.hash(user.password, SALT_WORK_FACTOR, (err, hash) => {
+    if (err) return next(err);
+    user.password = hash;
     return next();
-  })
-})
+  });
+});
 
 userSchema.methods.comparePassword = function (pass, cb) {
-  bcrypt.compare(pass, this.password, function (err, isMatch) {
+  bcrypt.compare(pass, this.password, (err, isMatch) => {
     // if (err) return next(err)
-    cb(err, isMatch)
-  })
-}
+    cb(err, isMatch);
+  });
+};
 
 const User = mongoose.model('users', userSchema);
 
