@@ -26,7 +26,7 @@ app.use('/build', express.static(path.resolve(__dirname, '../build')));
 app.use('/img', express.static(path.resolve(__dirname, '../client/images')));
 app.use('/images', express.static(path.resolve(__dirname, '../client/images')));
 
-//
+
 
 app.use('/oauth', (req, res) => {
   res.redirect(`https://github.com/login/oauth/authorize?client_id=${client_id}&redirect_uri=http://localhost:3000/authorize`);
@@ -72,57 +72,7 @@ app.use((err, req, res, next) => {
 
 app.listen(3000, () => console.log('Listening on PORT: 3000'));
 
-// app.use('/login/github', (req, res) => {
-//   const url = `https://github.com/login/oauth/authorize?client_id=${client_id}&redirect_uri=http://localhost:3000/login/github/callback`;
-//   res.redirect(url);
-// })
 
-// async function getAccessToken(code) {
-//   const res = await fetch('https://github.com/login/oauth/access_token', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({
-//       client_id,
-//       client_secret,
-//       code,
-//     }),
-//   });
-//   const data = await res.text();
-//   const params = new URLSearchParams(data);
-//   console.log('params line 50: ', params);
-//   return params.get('access_token');
-// }
-
-// async function getGithubUser(access_token) {
-//   const req = await fetch('https://api.github.com/user', {
-//     headers: {
-//       Authorization: `bearer ${access_token}`,
-//     },
-//   });
-//   const data = await req.json();
-//   return data;
-// }
-
-// app.use('/login/github/callback', async (req, res) => {
-//   const { code } = req.query;
-//   const token = await getAccessToken(code);
-//   const githubData = await getGithubUser(token);
-
-//   if (githubData) {
-//     req.session.githubId = githubData.id;
-//     req.session.token = token;
-//     res.redirect('/')
-//   } else {
-//     console.log('error');
-//   }
-// })
-
-// app.get('/secret', (req, res) => {
-//   if (req.session.githubId === 57828004) {
-//     res.render('/', 'hello')
-//   }
-// })
+// Button for OAuth 
 
 { /* <a href={`https://github.com/login/oauth/authorize?client_id=2e3c7b09858631e8f922`}>Github</a> */ }

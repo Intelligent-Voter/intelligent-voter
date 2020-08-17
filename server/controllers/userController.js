@@ -5,32 +5,38 @@ const User = require('../models/userModel.js');
 const userController = {};
 
 userController.createUser = async (req, res, next) => {
-  const {
-    username, password, address, zipcode,
-  } = req.body;
+  const { username, password, address, zipcode } = req.body;
   // console.log(username);
   try {
     const dataJ = await fetch(`https://usgeocoder.com/api/get_info.php?address=${address}&zipcode=${zipcode}&authkey=97c7224b2017426c36967c31af4c7645&format=json`);
     const data = await dataJ.json();
+    // Fetch State an District
     const { state } = data.usgeocoder.address_info;
     const district = data.usgeocoder.jurisdictions_info.congressional_legislators.congressional_district_id.congressional_district_id_value;
 
+    // Fetch Representative
     const repJson = await fetch(`https://api.propublica.org/congress/v1/members/house/${state}/${district}/current.json`, {
       method: 'GET',
       headers: {
         'x-api-key': 'czotF7qf5gL6JUwX03GdtucgNcSaJOOMgZsutEGF',
       },
     });
+    // Parse Rep
     const rep = await repJson.json();
 
+
+    // Fetch Senators
     const senJson = await fetch(`https://api.propublica.org/congress/v1/members/senate/${state}/current.json`, {
       method: 'GET',
       headers: {
         'x-api-key': 'czotF7qf5gL6JUwX03GdtucgNcSaJOOMgZsutEGF',
       },
     });
+
+    // Parse Senators
     const senator = await senJson.json();
 
+    // Save/Create user in MongoDB
     res.locals.user = await User.create({
       username, password, zipcode, rep: rep.results[0], senators: senator.results, state,
     });
@@ -60,6 +66,7 @@ userController.verifyUser = async (req, res, next) => {
   });
 };
 
+// Get github Token for OAuth purposes
 userController.getToken = (req, res, next) => {
   const client_id = '2e3c7b09858631e8f922';
   const { code } = req.query;
@@ -81,6 +88,7 @@ userController.getToken = (req, res, next) => {
   }).catch((err) => next(err));
 };
 
+// With token from above function get Github User ID
 userController.getGithubUser = async (req, res, next) => {
   const response = await fetch('https://api.github.com/user', {
     headers: {
@@ -91,6 +99,7 @@ userController.getGithubUser = async (req, res, next) => {
   res.locals.github = data;
   next();
 };
+
 
 userController.updateAddress = async (req, res, next) => {
   const { username, address, zipcode } = req.body;
