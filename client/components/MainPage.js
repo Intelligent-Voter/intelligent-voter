@@ -10,10 +10,11 @@ function MainPage(props) {
 
     const senators = data.senators.map((obj, i) => <div className="senators"><RepContainer homeState={data.state} rep={obj} route={`s${i+1}`}/></div> )
 
-    return ( 
+    return (
         <Fragment>
             <div className = "reps-container">
-                <Link to="/all"><button className="seeAll">See All Members</button></Link>
+                <Link to="/all"><button className='seeAll'>See All Members</button></Link>
+                {/* <Link to='/'><button>Logout</button></Link> */}
                 <h1>Your State Representatives</h1>
                 <h4>Senators</h4>
                     {senators}
@@ -22,6 +23,7 @@ function MainPage(props) {
                     <RepContainer homeState={data.state} rep={data.rep} route='r'/>
                 </div>
                 <div className="update">
+                    <h4>Moved? Update Your Address</h4>
                     <form onSubmit={updateAddress}>
                         <InputField
                         name="address"
@@ -33,7 +35,7 @@ function MainPage(props) {
                         label="Zipcode: "
                         onChange={onChange}
                         />
-                        <input type='submit' value='update' className='update-button' /> 
+                        <input type='submit' value='update' className='login-button' /> 
                     </form>
                 </div>
             </div>

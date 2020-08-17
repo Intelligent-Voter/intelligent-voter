@@ -60,7 +60,9 @@ function Login2(props) {
             label="Zipcode: "
             onChange={onChange}
           />
-          <input type='submit' value='Sign Up' className='login-button' />
+         
+          <input type='submit' value='Sign Up' className='login-button' onSubmit = {signup} />
+     
         </form>
       </div>
     )
