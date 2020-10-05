@@ -1,2 +1,2 @@
-# scratch
-Scratch Project - Stan, Matt, Liz, Darwin
+# Intelligent Voter
+Team - Stan, Matt, Liz, Darwin
